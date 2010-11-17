@@ -48,6 +48,8 @@ class IPAManifest extends AbstractIPAManifest {
 
   public function link_ipa($ipafile) {
     $path = dirname($_SERVER["SCRIPT_NAME"]);
+    if($path == "/")
+      $path = "";
     $file = urlencode($ipafile);
     return base_url() . "$path/" . IPAPATH . "/$file";
   }

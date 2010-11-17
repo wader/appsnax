@@ -1,0 +1,67 @@
+/*
+ *
+ * Copyright (c) 2010 <mattias.wadman@gmail.com>
+ *
+ * MIT License:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ */
+
+.icon {
+  width: 57px;
+  height: 57px;  
+  position: relative;
+}
+.icon-shadow {
+  width: 57px;
+  height: 57px;  
+  position: absolute;
+  left: 0px;
+  top: 1px;
+  background: #333;
+  -webkit-border-radius: 12px;
+  -webkit-box-shadow: 0px 1px 10px #000;
+}
+.icon-rounded {
+  width: 57px;
+  height: 57px;  
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  -webkit-border-radius: 12px;
+}
+.icon-glossy {
+  width: 57px;
+  height: 57px;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  z-index: 100;
+  /* from http://www.xorph.com/nfd/2010/06/10/iphone-icon-gloss-overlay-in-pure-css/ */
+  -webkit-border-radius: 12px;
+  background-image:
+    -webkit-gradient(radial, 28.5 -47, 0, 28.5 0, 700,
+		     from(rgba(255,255,255,1)),
+		     to(rgba(255,255,255,0)),
+		     color-stop(10%, rgba(255,255,255,0.2)),
+		     color-stop(10.5%, rgba(140,140,140,0.2)),
+		     color-stop(13%, rgba(140,140,140,0)),
+		     color-stop(13.7%, rgba(255,255,255,0)),
+		     color-stop(17%, rgba(255,255,255,1)));
+}

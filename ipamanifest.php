@@ -47,9 +47,7 @@ class IPAFile {
   function __construct($file_id, $ipafile) {
     $this->zip = new ZipArchive();
     $this->zip->open($ipafile);
-
     $this->file_id = $file_id;
-    $s = stat($ipafile);
 
     // find Payload/Name.app prefix inside IPA
     for($i = 0; $i < $this->zip->numFiles; $i++) {

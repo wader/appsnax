@@ -29,7 +29,7 @@ define("IPAPATH", "ipas");
 
 require_once("ipamanifest.php");
 
-function base_path() {
+function base_url() {
   return
       ("http" . ($_SERVER["HTTPS"] != "" ? "s" : "")) . 
       ("://{$_SERVER["SERVER_NAME"]}" .
@@ -40,7 +40,7 @@ function base_path() {
 
 class IPAManifest extends AbstractIPAManifest {
   public function link_action($file_id, $action) {
-    return base_path() .
+    return base_url() .
       "{$_SERVER["SCRIPT_NAME"]}" . 
       "?file=" . urlencode($file_id) .
       "&action=" . urlencode($action);
@@ -49,7 +49,7 @@ class IPAManifest extends AbstractIPAManifest {
   public function link_ipa($ipafile) {
     $path = dirname($_SERVER["SCRIPT_NAME"]);
     $file = urlencode($ipafile);
-    return base_path() . "$path/" . IPAPATH . "/$file";
+    return base_url() . "$path/" . IPAPATH . "/$file";
   }
 }
 

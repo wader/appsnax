@@ -15,7 +15,7 @@ Notable features:
 *   UIPrerenderedIcon aware, skips shine effect on web page and while installing.
 *   App icon rounding and shadow effect in CSS.
 *   Scaled images, tries to use @2x app icon first.
-*   Does not require a temp directory or write permissions.
+*   Does not require a temp directory or write permissions on the web server.
 *   Two example themes.
 
 Example usage

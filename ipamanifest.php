@@ -62,7 +62,7 @@ class IPAFile {
     $p->parse($this->read("Info.plist"));
     $this->info = $p->toArray();
     
-    $s = $this->zip->statName($this->ipaName("Info.plist"));
+    $s = $this->zip->statName($this->ipa_name("Info.plist"));
     $this->created = $s["mtime"];
     $this->id = $this->info["CFBundleIdentifier"];
     $this->version = $this->info["CFBundleVersion"];
@@ -73,16 +73,16 @@ class IPAFile {
       $this->info["UIPrerenderedIcon"];
   }
 
-  public function ipaName($name) {
+  public function ipa_name($name) {
     return "{$this->base_path}/{$name}";
   }
 
   public function read($name) {
-    return $this->zip->getFromName($this->ipaName($name));
+    return $this->zip->getFromName($this->ipa_name($name));
   }
 
   public function exists($name) {
-    return $this->zip->statName($this->ipaName($name)) != FALSE;
+    return $this->zip->statName($this->ipa_name($name)) != FALSE;
   }			 
 
   public function strip_image_name($name) {

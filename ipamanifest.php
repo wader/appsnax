@@ -62,7 +62,7 @@ class IPAFile {
     $p->parse($this->read("Info.plist"));
     $this->info = $p->toArray();
     
-    $s = $this->zip->statName($this->ipa_name("Info.plist"));
+    $s = $this->zip->statName($this->ipa_name($this->info["CFBundleExecutable"]));
     $this->created = $s["mtime"];
     $this->id = $this->info["CFBundleIdentifier"];
     $this->version = $this->info["CFBundleVersion"];

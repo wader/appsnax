@@ -31,6 +31,63 @@
 
 require_once("cfpropertylist/CFPropertyList.php");
 
+class IOSVersion {
+  public $models;
+  public $major;
+  public $minor;
+
+  function __construct($models, $major, $minor) {
+    $this->models = $models;
+    $this->major = $major;
+    $this->minor = $minor;  
+  }
+
+  static public function from_agent($agent) {
+    if(!preg_match('/\((?P<model>iPhone|iPad|iPod)(?: Simulator)?;.*OS (?P<major>\d+)_(?P<minor>\d+)(?:_\d+)?/', $agent, $m))
+      return FALSE;
+
+    return new IOSVersion(array($m["model"]), (int)$m["major"], (int)$m["minor"]);
+  }
+
+  static public function from_family_version($family, $version) {
+    if(!preg_match('/^(?P<major>\d+)\.(?P<minor>\d+).*$/', $version, $m))
+      return FALSE;
+
+    if(!is_array($family))
+      $family = array($family);
+    $models = array();
+    foreach($family as $f) {
+      if($f == 1) {
+	$models[] = "iPhone";
+	$models[] = "iPod";
+	$models[] = "iPad";
+      } else if($f == 2) {
+	$models[] = "iPad";
+      }
+    }
+
+    return new IOSVersion($models, (int)$m["major"], (int)$m["minor"]);
+  }
+
+  public function less_than($other) {
+    return
+      $this->major < $other->major ||
+      ($this->major == $other->major && $this->minor < $other->minor);
+  }
+
+  public function has_model($other) {
+    foreach($other->models as $m)
+      if(in_array($m, $this->models))
+	return TRUE;
+
+    return FALSE;
+  }
+
+  public function version_string() {
+    return $this->major . "." . $this->minor;
+  }
+}
+
 class IPAFile {
   private $zip;
   private $base_path;
@@ -66,6 +123,9 @@ class IPAFile {
     $this->created = $s["mtime"];
     $this->id = $this->info["CFBundleIdentifier"];
     $this->version = $this->info["CFBundleVersion"];
+    $this->ios_version = IOSVersion::from_family_version($this->info["UIDeviceFamily"],
+							 $this->info["MinimumOSVersion"]);
+    $this->name = $this->info["CFBundleName"];
     $this->display_name = $this->info["CFBundleDisplayName"];
     $this->icon_name = $this->find_icon_name();
     $this->has_prerendered_icon =

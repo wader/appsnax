@@ -56,7 +56,25 @@ foreach(glob(IPAPATH . "/*.ipa") as $ipafile) {
 function manifest_created_cmp($a, $b) {
   return $b->ipa->created - $a->ipa->created;
 }
-uasort($manifests, "manifest_created_cmp");
+
+function collect_manifests($path) {
+  $manifests = array();
+  foreach(glob("$path/*.ipa") as $ipafile) {
+    $file_id = basename($ipafile);
+    $manifests[$file_id] = new IPAManifest($file_id, $ipafile);
+  }
+
+  uasort($manifests, "manifest_created_cmp");
+
+  return $manifests;
+}
+
+//$ios = new IOSVersion(array("iPhone"), 4, 0);
+//$ios = new IOSVersion(array("iPhone"), 2, 0);
+//$ios = new IOSVersion(array("iPad"), 4, 0);
+//$ios = FALSE; 
+$ios = IOSVersion::from_agent($_SERVER["HTTP_USER_AGENT"]);
+$manifests = collect_manifests(IPAPATH);
 
 $file = isset($_GET["file"]) ? $_GET["file"] : "";
 $action = isset($_GET["action"]) ? $_GET["action"] : "";

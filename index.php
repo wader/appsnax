@@ -75,12 +75,20 @@ $manifests = collect_manifests(IPAPATH);
 
 $file = isset($_GET["file"]) ? $_GET["file"] : "";
 $action = isset($_GET["action"]) ? $_GET["action"] : "";
-
 if(isset($manifests[$file])) {
   return $manifests[$file]->dispatch($action);
 }
 
-//require_once("springboard.php");
-require_once("iwebkit.php");
+if($ios === FALSE) {
+  // non iOS device
+  require_once("desktop.php");
+} else {
+  // some iOS device
+  if($ios->major < 4)
+    $warning = "You'r using a device with a iOS version older than 4.0. This means that you can't install Ad Hoc applications directly from Safari. Please upgrade or visit this web site from a computer with iTunes.";
+
+  //require_once("springboard.php");
+  require_once("iwebkit.php");
+}
 
 ?>

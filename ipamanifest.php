@@ -206,7 +206,9 @@ class AbstractIPAManifest {
   }
 
   public function dispatch($action) {
-    if($action == "icon")
+    if($action == "ipa")
+      return $this->ipa_data();
+    else if($action == "icon")
       return $this->icon_data();
     else if($action == "manifest")
       return $this->manifest_data();
@@ -214,6 +216,25 @@ class AbstractIPAManifest {
       return $this->display_image_data();
     else if($action == "full-size-image")
       return $this->full_size_image_data();
+    else if($action == "mobileprovision")
+      return $this->mobileprovision_data();
+  }
+  
+  private function attachment_filename($s) {
+    $len = strlen($s);
+    for($i = 0; $i < $len; $i++)
+      if(strstr(" .,:+-abcdefghijklmnopqrstuvxyzABCEDFGHIJKLMNOPQRSTUVXYZ0123456789", $s[$i]) == FALSE)
+        $s[$i] = "_";
+
+    return $s;
+  }
+  
+  public function ipa_data() {
+    $filename = $this->attachment_filename(basename($this->ipafile));
+    header("Content-Type: application/octet-stream");
+    header("Content-Disposition: attachment; filename=\"$filename\"");
+    header("Content-Length: " . filesize($this->ipafile));
+    readfile($this->ipafile);
   }
 
   public function icon_data() {
@@ -228,6 +249,13 @@ class AbstractIPAManifest {
   public function full_size_image_data() {
     header("Content-Type: image/png");
     echo $this->ipa->read("iTunesArtwork");
+  }
+
+  public function mobileprovision_data() {
+    $filename = $this->attachment_filename($this->ipa->name) . ".mobileprovision";
+    header("Content-Type: application/octet-stream");
+    header("Content-Disposition: attachment; filename=\"$filename\"");
+    echo $this->ipa->read("embedded.mobileprovision");
   }
 
   public function manifest_data() {

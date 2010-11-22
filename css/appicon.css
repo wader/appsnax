@@ -36,7 +36,22 @@
   top: 1px;
   background: #333;
   -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
   -webkit-box-shadow: 0px 1px 10px #000;
+  -moz-box-shadow: 0px 1px 10px #000;
+  box-shadow: 0px 1px 10px #000;
+}
+.icon-background {
+  width: 57px;
+  height: 57px;  
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  background: #fff;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
 }
 .icon-rounded {
   width: 57px;
@@ -44,7 +59,10 @@
   position: absolute;
   left: 0px;
   top: 0px;
+  z-index: 100;
   -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
 }
 .icon-glossy {
   width: 57px;
@@ -52,9 +70,11 @@
   left: 0px;
   top: 0px;
   position: absolute;
-  z-index: 100;
+  z-index: 200;
   /* from http://www.xorph.com/nfd/2010/06/10/iphone-icon-gloss-overlay-in-pure-css/ */
   -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
   background-image:
     -webkit-gradient(radial, 28.5 -47, 0, 28.5 0, 700,
 		     from(rgba(255,255,255,1)),
@@ -64,4 +84,12 @@
 		     color-stop(13%, rgba(140,140,140,0)),
 		     color-stop(13.7%, rgba(255,255,255,0)),
 		     color-stop(17%, rgba(255,255,255,1)));
+  background-image: 
+    -moz-radial-gradient(28.5px -47px 45deg, circle farthest-side,
+			 rgba(255,255,255,1) 0%,
+			 rgba(255,255,255,0.2) 72%,
+			 rgba(140,140,140,0.3) 74.5%,
+			 rgba(140,140,140,0) 85%,
+			 rgba(255,255,255,0) 95%,
+			 rgba(255,255,255,1) 160%);
 }

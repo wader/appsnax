@@ -1,7 +1,5 @@
 <?php
 /*
- * Example usage of ipamanifest
- *
  * Copyright (c) 2010 <mattias.wadman@gmail.com>
  *
  * MIT License:
@@ -25,47 +23,23 @@
  *
  */
 
-define("IPAPATH", "ipas");
-
-require_once("ipamanifest.php");
-require_once("misc.php");
-
-class IPAManifest extends AbstractIPAManifest {
-  public function link_action($file_id, $action) {
-    return base_url() .
-      "{$_SERVER["SCRIPT_NAME"]}" . 
-      "?file=" . urlencode($file_id) .
-      "&action=" . urlencode($action);
-  }
-
-  public function link_ipa($ipafile) {
-    $path = dirname($_SERVER["SCRIPT_NAME"]);
-    if($path == "/")
-      $path = "";
-    $file = urlencode($ipafile);
-    return base_url() . "$path/" . IPAPATH . "/$file";
-  }
+function base_url() {
+  return
+    "http" . ($_SERVER["HTTPS"] != "" ? "s" : "") . 
+    "://{$_SERVER["SERVER_NAME"]}" .
+    (($_SERVER["HTTPS"] != "" && $_SERVER["SERVER_PORT"] != "443") ||
+     ($_SERVER["HTTPS"] == "" && $_SERVER["SERVER_PORT"] != "80") ?
+     ":" . $_SERVER["SERVER_PORT"] : "");
 }
 
-$manifests = array();
-foreach(glob(IPAPATH . "/*.ipa") as $ipafile) {
-  $file_id = basename($ipafile);
-  $manifests[$file_id] = new IPAManifest($file_id, $ipafile);
+// used to convert array(a,b,c) to "a, b and c"
+function implode_natural($sep, $last, $items) {
+  if(count($items) < 3)
+    return implode($last, $items);
+
+  return
+    implode($sep, array_slice($items, 0, -1)) .
+    $last . $items[count($items) - 1];
 }
-
-function manifest_created_cmp($a, $b) {
-  return $b->ipa->created - $a->ipa->created;
-}
-uasort($manifests, "manifest_created_cmp");
-
-$file = isset($_GET["file"]) ? $_GET["file"] : "";
-$action = isset($_GET["action"]) ? $_GET["action"] : "";
-
-if(isset($manifests[$file])) {
-  return $manifests[$file]->dispatch($action);
-}
-
-//require_once("springboard.php");
-require_once("iwebkit.php");
 
 ?>

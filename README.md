@@ -27,4 +27,7 @@ Example usage
 -------------
 
 ![iwebkit example image](/wader/ipamanifest/raw/master/iwebkitexample.png)
+
 ![springboard example image](/wader/ipamanifest/raw/master/springboardexample.png)
+
+![desktop example image](/wader/ipamanifest/raw/master/desktopexample.png)

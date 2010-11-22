@@ -31,26 +31,23 @@ require_once("ipamanifest.php");
 require_once("misc.php");
 
 class IPAManifest extends AbstractIPAManifest {
-  public function link_action($file_id, $action) {
+  public function link($file_id, $action) {
+    // you can direct the ipa action directly to the ipa-file if you want
+    /*
+    if($action == "ipa") {
+      $path = dirname($_SERVER["SCRIPT_NAME"]);
+      if($path == "/")
+	$path = "";
+      $file = urlencode($file_id);
+      return base_url() . "$path/" . IPAPATH . "/$file";
+    } 
+    */
+
     return base_url() .
       "{$_SERVER["SCRIPT_NAME"]}" . 
       "?file=" . urlencode($file_id) .
       "&action=" . urlencode($action);
   }
-
-  public function link_ipa($ipafile) {
-    $path = dirname($_SERVER["SCRIPT_NAME"]);
-    if($path == "/")
-      $path = "";
-    $file = urlencode($ipafile);
-    return base_url() . "$path/" . IPAPATH . "/$file";
-  }
-}
-
-$manifests = array();
-foreach(glob(IPAPATH . "/*.ipa") as $ipafile) {
-  $file_id = basename($ipafile);
-  $manifests[$file_id] = new IPAManifest($file_id, $ipafile);
 }
 
 function manifest_created_cmp($a, $b) {

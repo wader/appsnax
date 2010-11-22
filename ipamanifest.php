@@ -191,25 +191,28 @@ class IPAFile {
 }
 
 class AbstractIPAManifest {
-  public $ipa;
-  public $link_icon;
-  public $link_manifest;
-  public $link_itms;
+  private $ipafile;
 
   function __construct($file_id, $ipafile) {
+    $this->ipafile = $ipafile;
     $this->ipa = new IPAFile($file_id, $ipafile);
-    $this->link_icon = $this->link_action($this->ipa->file_id, "icon");
-    $this->link_manifest = $this->link_action($this->ipa->file_id, "manifest");
+    $this->link_ipa = $this->link($this->ipa->file_id, "ipa");
+    if(isset($this->ipa->icon_name))
+      $this->link_icon = $this->link($this->ipa->file_id, "icon");
+    $this->link_manifest = $this->link($this->ipa->file_id, "manifest");
+    $this->link_display_image = $this->link($this->ipa->file_id, "display-image");
+    if($this->ipa->exists("iTunesArtwork"))
+      $this->link_full_size_image = $this->link($this->ipa->file_id, "full-size-image");
+    if($this->ipa->exists("embedded.mobileprovision"))
+      $this->link_mobileprovision = $this->link($this->ipa->file_id, "mobileprovision");
     $this->link_itms =
       "itms-services://" .
       "?action=download-manifest" .
       "&url=" . urlencode($this->link_manifest);
   }
-  
-  public function link_action($file_id, $action) {
-  }
-
-  public function link_ipa($ipafile) {
+ 
+  // override this method and return URLs that will end up in the dispatch method
+  public function link($file_id, $action) {
   }
 
   public function dispatch($action) {
@@ -253,15 +256,12 @@ class AbstractIPAManifest {
     $software_package = new CFDictionary();
     $assets->add($software_package);
     $software_package->add("kind", new CFString("software-package"));
-    $software_package->add("url",
-			   new CFString($this->link_ipa($this->ipa->file_id)));
+    $software_package->add("url", new CFString($this->link_ipa));
 
     $display_image = new CFDictionary();
     $assets->add($display_image);
     $display_image->add("kind", new CFString("display-image"));
-    $display_image->add("url",
-			new CFString($this->link_action($this->ipa->file_id,
-							"display-image")));
+    $display_image->add("url", new CFString($this->link_display_image));
     if($this->has_prerendered_icon)
       $display_image->add("needs-shine", False);
 
@@ -269,9 +269,7 @@ class AbstractIPAManifest {
       $full_size_image = new CFDictionary();
       $assets->add($full_size_image);
       $full_size_image->add("kind", new CFString("full-size-image"));
-      $full_size_image->add("url",
-			    new CFString($this->link_action($this->ipa->file_id,
-							    "full-size-image")));
+      $full_size_image->add("url", new CFString($this->link_full_size_image));
       if($this->has_prerendered_icon)
 	$full_size_image->add("needs-shine", False);
     }

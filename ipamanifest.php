@@ -91,15 +91,6 @@ class IOSVersion {
 class IPAFile {
   private $zip;
   private $base_path;
-  public $file_id;
-  public $ipafile;
-  public $info;
-  public $id;
-  public $display_name;
-  public $version;
-  public $icon_name;
-  public $created;
-  public $has_prerendered_icon;
 
   function __construct($file_id, $ipafile) {
     $this->zip = new ZipArchive();
@@ -118,7 +109,6 @@ class IPAFile {
     $p = new CFPropertyList();
     $p->parse($this->read("Info.plist"));
     $this->info = $p->toArray();
-    
     $s = $this->zip->statName($this->ipa_name($this->info["CFBundleExecutable"]));
     $this->created = $s["mtime"];
     $this->id = $this->info["CFBundleIdentifier"];
@@ -186,7 +176,7 @@ class IPAFile {
       }
     }
 
-    return "";
+    return FALSE;
   }
 }
 

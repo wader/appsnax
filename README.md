@@ -1,7 +1,7 @@
 ipamanifest
 ===========
 
-Generate wireless app distribution mainifests directly from IPA files.
+Generate wireless Ad Hoc application distribution mainifests directly from IPA files.
 
 Makes it possible for testers to install and upgrade applications directly
 from Safari on iOS devices without involving iTunes. Wireless app
@@ -12,11 +12,15 @@ Default you should put your IPA files into the `ipas` directory.
 
 Notable features:
 
+*   Warn about minimum iOS version and model per IPA based on the device used is browsing from.
+    Also warns if user is using a version too old to support wireless application distribution.
+*   If browsing from a non-iOS device it shows iTunes instructions and link to download IPA
+    and mobileprovision files per application.
+*   Extracts icons and mobileprovision from IPA file on the fly.
 *   UIPrerenderedIcon aware, skips shine effect on web page and while installing.
-*   App icon rounding and shadow effect in CSS.
+*   App icon rounding, shadow and gloss effect in CSS.
 *   Scaled images, tries to use @2x app icon first.
 *   Does not require a temp directory or write permissions on the web server.
-*   Two example themes.
 
 Example usage
 -------------

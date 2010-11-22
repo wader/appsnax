@@ -12,11 +12,12 @@ Default you should put your IPA files into the `ipas` directory.
 
 Notable features:
 
-*   Warn about minimum iOS version and model per IPA based on the device used is browsing from.
+*   Warns about minimum iOS version and required device model per IPA based on the device used
+    when browsing.
     Also warns if user is using a version too old to support wireless application distribution.
 *   If browsing from a non-iOS device it shows iTunes instructions and link to download IPA
     and mobileprovision files per application.
-*   Extracts icons and mobileprovision from IPA file on the fly.
+*   Extracts icons and mobileprovision file from IPA on the fly.
 *   UIPrerenderedIcon aware, skips shine effect on web page and while installing.
 *   App icon rounding, shadow and gloss effect in CSS.
 *   Scaled images, tries to use @2x app icon first.

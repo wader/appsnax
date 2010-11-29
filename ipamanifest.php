@@ -59,7 +59,7 @@ class IOSVersion {
     foreach($family as $f) {
       if($f == 1) {
 	$models[] = "iPhone";
-	$models[] = "iPod";
+	$models[] = "iPod Touch";
 	$models[] = "iPad";
       } else if($f == 2) {
 	$models[] = "iPad";

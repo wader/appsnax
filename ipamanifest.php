@@ -223,7 +223,7 @@ class AbstractIPAManifest {
   private function attachment_filename($s) {
     $len = strlen($s);
     for($i = 0; $i < $len; $i++)
-      if(strstr(" .,:+-abcdefghijklmnopqrstuvxyzABCEDFGHIJKLMNOPQRSTUVXYZ0123456789", $s[$i]) == FALSE)
+      if(strstr(" .,:+-abcdefghijklmnopqrstuvwxyzABCEDFGHIJKLMNOPQRSTUVWXYZ0123456789", $s[$i]) == FALSE)
         $s[$i] = "_";
 
     return $s;

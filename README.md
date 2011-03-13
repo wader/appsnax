@@ -1,12 +1,12 @@
-ipamanifest
-===========
+appsnax
+=======
 
 Generate wireless Ad Hoc application distribution mainifests directly from IPA files.
 
 Makes it possible for testers to install and upgrade applications directly
 from Safari on iOS devices without involving iTunes. Wireless app
-distribution requires iOS 4.0 or higher. Also ipamanifest assumes that the IPA
-files has embedded provision files.
+distribution requires iOS 4.0 or higher. Note that appsnax assumes that the IPA
+files have embedded provision files.
 
 Default you should put your IPA files into the `ipas` directory.
 
@@ -26,8 +26,8 @@ Notable features:
 Example usage
 -------------
 
-![iwebkit example image](/wader/ipamanifest/raw/master/iwebkitexample.png)
+![iwebkit example image](/wader/appsnax/raw/master/iwebkitexample.png)
 
-![springboard example image](/wader/ipamanifest/raw/master/springboardexample.png)
+![springboard example image](/wader/appsnax/raw/master/springboardexample.png)
 
-![desktop example image](/wader/ipamanifest/raw/master/desktopexample.png)
+![desktop example image](/wader/appsnax/raw/master/desktopexample.png)

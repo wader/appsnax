@@ -26,8 +26,8 @@ Notable features:
 Example usage
 -------------
 
-![iwebkit example image](/wader/appsnax/raw/master/iwebkitexample.png)
+![iwebkit example image](https://raw.github.com/wader/appsnax/master/iwebkitexample.png)
 
-![springboard example image](/wader/appsnax/raw/master/springboardexample.png)
+![springboard example image](https://raw.github.com/wader/appsnax/master/springboardexample.png)
 
-![desktop example image](/wader/appsnax/raw/master/desktopexample.png)
+![desktop example image](https://raw.github.com/wader/appsnax/master/desktopexample.png)
